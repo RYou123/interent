@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1010684314746",
+    "project_id": "interent-b5459",
+    "storage_bucket": "interent-b5459.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010684314746:android:dc122118783e3f6299a7c3",
+        "android_client_info": {
+          "package_name": "com.example.interent_booking_system"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010684314746-46jdmg8jfi9uk9s0t020h2ke8rban6c2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2NaWh8Fe_QR1L3DzemRyqAZZSd59GUVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010684314746-46jdmg8jfi9uk9s0t020h2ke8rban6c2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010684314746:android:df51fe9bc6720f7099a7c3",
+        "android_client_info": {
+          "package_name": "com.interent.flutter5"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010684314746-46jdmg8jfi9uk9s0t020h2ke8rban6c2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2NaWh8Fe_QR1L3DzemRyqAZZSd59GUVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010684314746-46jdmg8jfi9uk9s0t020h2ke8rban6c2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
