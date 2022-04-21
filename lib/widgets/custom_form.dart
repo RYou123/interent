@@ -228,8 +228,9 @@ class MyCustomFormState extends State<MyCustomForm> {
 
                         print("sent email");
 
-                        //Navigator.of(context).pushReplacement( new
-                           // MaterialPageRoute(builder: (ctx) => BookingInfo()));
+                        Navigator.of(context).pushReplacement(
+                            new MaterialPageRoute(
+                                builder: (ctx) => Thankyouscreen()));
                       }
                     },
                     child: const Text('Submit'),

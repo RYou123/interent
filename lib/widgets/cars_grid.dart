@@ -137,7 +137,7 @@ class CarsGrid extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          '${(dtf.difference(dtd).inDays.toInt() > 14 ? (avilcars[i].price! * .85).roundToDouble() : dtf.difference(dtd).inDays.toInt() > 7 ? (avilcars[i].price! * .9).roundToDouble() : avilcars[i].price).toString()}€',
+                          '${(dtf.difference(dtd).inDays.toInt() > 14 ? (avilcars[i].price! * .85).roundToDouble() : dtf.difference(dtd).inDays.toInt() > 7 ? (avilcars[i].price! * .9).roundToDouble() : avilcars[i].price).toString()}€ / Day',
                         ),
                         Text(
                           'total ${dtf.difference(dtd).inDays.toInt().abs() > 14 ? (avilcars[i].price! * .85).roundToDouble() * dtf.difference(dtd).inDays.toInt().abs() : dtf.difference(dtd).inDays.toInt() > 7 ? (avilcars[i].price! * .9).roundToDouble() * dtf.difference(dtd).inDays.toInt().abs() : avilcars[i].price!.toInt() * dtf.difference(dtd).inDays.toInt().abs()}.00 €',

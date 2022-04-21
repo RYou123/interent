@@ -2,6 +2,7 @@ import '../utils/utils.dart';
 import 'package:flutter/material.dart';
 import '../widgets/specific_card.dart';
 import '../widgets/custom_form.dart';
+import 'package:intl/intl.dart';
 
 class CarDetail extends StatelessWidget {
   final String? title;
@@ -31,6 +32,9 @@ class CarDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String pickupdateformat = DateFormat.yMMMEd().format(dtd!);
+    String dropoffformat = DateFormat.yMMMEd().format(dtf!);
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -142,6 +146,26 @@ class CarDetail extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 20),
+                    Divider(),
+                    Text("Dates"),
+                    Text(
+                      '${pickupdateformat}',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                    Text(
+                      '${dropoffformat}',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                    Divider(),
+                    Text('Pickup & Return'),
+                    Text('$pickup / $dropoff'),
+                    Divider(),
                     Container(
                       padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
@@ -186,7 +210,7 @@ class CarDetail extends StatelessWidget {
                               )
                             ],
                           ),
-                        )
+                        ),
                       ]),
                     ),
                     SizedBox(height: 20),

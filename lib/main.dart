@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:window_location_href/window_location_href.dart';
 import 'package:url_strategy/url_strategy.dart';
+import './screens/thank_you.dart';
 
 import 'models/cars.dart';
 import 'models/database.dart';
@@ -541,9 +542,9 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 _launchURL() async {
-  const url = 'https://interent-b5459.web.app/';
+  const url = 'https://interent.gr';
   if (await canLaunch(url)) {
-    await launch(url);
+    await launch(url, webOnlyWindowName: '_self');
   } else {
     throw 'Could not launch $url';
   }

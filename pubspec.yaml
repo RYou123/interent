@@ -35,7 +35,7 @@ dependencies:
   flutter_titled_container: ^1.0.7
   window_location_href: ^1.0.0
   url_strategy: ^0.2.0
-
+  intl: ^0.17.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -7,7 +7,7 @@ import 'package:window_location_href/window_location_href.dart';
 final String? url = getHref();
 Uri uri = new Uri.dataFromString(url!);
 
-class BookingInfo extends StatelessWidget {
+class Thankyouscreen extends StatelessWidget {
   String? myurl;
   @override
   Widget build(BuildContext context) {
