@@ -91,7 +91,7 @@ class CarDetail extends StatelessWidget {
                               ? (price!).roundToDouble()
                               : dtf!.difference(dtd!).inDays.toInt() > 7
                                   ? (price! / 0.9 * 0.85).roundToDouble()
-                                  : price! * 0.85,
+                                  : price!.roundToDouble() * 0.85,
                           name2: 'Euro',
                         ),
                         SpecificsCard(
@@ -100,7 +100,7 @@ class CarDetail extends StatelessWidget {
                               ? (price! / .85 * 0.9).roundToDouble()
                               : dtf!.difference(dtd!).inDays.toInt() > 7
                                   ? (price!).roundToDouble()
-                                  : price! * 0.9,
+                                  : price!.roundToDouble() * 0.9,
                           name2: 'Euro',
                         ),
                         SpecificsCard(
@@ -109,7 +109,7 @@ class CarDetail extends StatelessWidget {
                               ? (price! / .85).roundToDouble()
                               : dtf!.difference(dtd!).inDays.toInt() > 7
                                   ? (price! / .9).roundToDouble()
-                                  : price,
+                                  : price!.roundToDouble(),
                           name2: 'Euro',
                         )
                       ],
@@ -127,49 +127,58 @@ class CarDetail extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        SpecificsCard(
+                        SpecificsCard2(
                           name: 'Door',
                           name2: doors!,
                         ),
-                        SpecificsCard(
+                        SpecificsCard2(
                           name: 'Color',
                           name2: color!,
                         ),
-                        SpecificsCard(
+                        SpecificsCard2(
                           name: 'Gearbox',
                           name2: transmission!,
                         ),
-                        SpecificsCard(
+                        SpecificsCard2(
                           name: 'Fuel',
                           name2: fuel!,
                         )
                       ],
                     ),
                     SizedBox(height: 20),
-                    Divider(),
-                    Text("Dates"),
-                    Text(
-                      '${pickupdateformat}',
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                    Divider(thickness: 1),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                      child: Text(
+                        "DATES",
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
                     ),
-                    Text(
-                      '${dropoffformat}',
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                    Text('$pickupdateformat'),
+                    Text('$dropoffformat'),
+                    Divider(thickness: 1),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                      child: Text(
+                        'PICKUP & RETURN',
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
                     ),
-                    Divider(),
-                    Text('Pickup & Return'),
-                    Text('$pickup / $dropoff'),
-                    Divider(),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                      child: Text('$pickup / $dropoff'),
+                    ),
                     Container(
                       padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                          border: Border.all(width: 1, color: Colors.black),
+                          border:
+                              Border.all(width: 1, color: Colors.grey[400]!),
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8))),
                       width: MediaQuery.of(context).size.width * .9,
@@ -179,7 +188,7 @@ class CarDetail extends StatelessWidget {
                             children: [
                               Text('Price'),
                               Text(
-                                  '${dtf!.difference(dtd!).inDays.toInt() * price!} €')
+                                  '${dtf!.difference(dtd!).inDays.toInt().abs().roundToDouble() * price!} €')
                             ]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -202,7 +211,7 @@ class CarDetail extends StatelessWidget {
                             children: [
                               Text('Total'),
                               Text(
-                                '${dtf!.difference(dtd!).inDays.toInt() * price!} €',
+                                '${dtf!.difference(dtd!).inDays.toInt().abs().roundToDouble() * price!.abs().roundToDouble()} €',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),

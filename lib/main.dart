@@ -69,6 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
     'Hotel (specify later)'
   ];
 
+  
+
   DateTime selectedDate = DateTime.now().subtract(Duration(days: 1));
   DateTime selectedDate2 = DateTime.now();
   SearchService d = new SearchService();
@@ -179,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Container(
             padding: EdgeInsets.all(10),
             child: Text(
-              "Book in 2 easy steps - No deposit required!",
+              "Select your car",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.grey[700],
@@ -209,6 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ]),
                   Row(children: [
                     Container(
+                        margin: const EdgeInsets.fromLTRB(8, 10, 0, 8),
                         height: 40,
                         color: Colors.white,
                         alignment: Alignment.center,
@@ -217,16 +220,18 @@ class _MyHomePageState extends State<MyHomePage> {
                           isExpanded: true,
                           style: TextStyle(color: Colors.black),
                           dropdownColor: Colors.orange,
-                          value: dropofflocation,
+                          value: pickuplocation,
                           icon: Icon(Icons.keyboard_arrow_down),
                           underline: Container(),
                           items: items.map((String items) {
                             return DropdownMenuItem(
-                                value: items, child: Text(items));
+                                value: items,
+                                child: Text('     $items',
+                                    textAlign: TextAlign.center));
                           }).toList(),
-                          onChanged: (String? newValue) {
+                          onChanged: (String? newValue1) {
                             setState(() {
-                              pickuplocation = newValue!;
+                              pickuplocation = newValue1!;
                             });
                           },
                         )),
@@ -235,6 +240,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Container(
                         height: 40,
+                        margin: const EdgeInsets.fromLTRB(8, 10, 0, 8),
                         color: Colors.white,
                         alignment: Alignment.center,
                         width: MediaQuery.of(context).size.width / 2.3,
@@ -247,7 +253,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           underline: Container(),
                           items: items.map((String items) {
                             return DropdownMenuItem(
-                                value: items, child: Text(items));
+                                value: items,
+                                child: Text('     $items',
+                                    textAlign: TextAlign.center));
                           }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {

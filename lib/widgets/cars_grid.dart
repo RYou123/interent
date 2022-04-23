@@ -136,11 +136,17 @@ class CarsGrid extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          '${(dtf.difference(dtd).inDays.toInt() > 14 ? (avilcars[i].price! * .85).roundToDouble() : dtf.difference(dtd).inDays.toInt() > 7 ? (avilcars[i].price! * .9).roundToDouble() : avilcars[i].price).toString()}€ / Day',
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
+                          child: Text(
+                            '${(dtf.difference(dtd).inDays.toInt() > 14 ? (avilcars[i].price! * .85).roundToDouble() : dtf.difference(dtd).inDays.toInt() > 7 ? (avilcars[i].price! * .9).roundToDouble() : avilcars[i].price).toString()}€ / DAY',
+                          ),
                         ),
-                        Text(
-                          'total ${dtf.difference(dtd).inDays.toInt().abs() > 14 ? (avilcars[i].price! * .85).roundToDouble() * dtf.difference(dtd).inDays.toInt().abs() : dtf.difference(dtd).inDays.toInt() > 7 ? (avilcars[i].price! * .9).roundToDouble() * dtf.difference(dtd).inDays.toInt().abs() : avilcars[i].price!.toInt() * dtf.difference(dtd).inDays.toInt().abs()}.00 €',
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
+                          child: Text(
+                            'total ${dtf.difference(dtd).inDays.toInt().abs() > 14 ? (avilcars[i].price! * .85).roundToDouble() * dtf.difference(dtd).inDays.toInt().abs() : dtf.difference(dtd).inDays.toInt() > 7 ? (avilcars[i].price! * .9).roundToDouble() * dtf.difference(dtd).inDays.toInt().abs() : avilcars[i].price!.toInt() * dtf.difference(dtd).inDays.toInt().abs()}.00 €',
+                          ),
                         ),
                       ]),
                   SizedBox(

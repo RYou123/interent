@@ -94,11 +94,10 @@ class MyCustomFormState extends State<MyCustomForm> {
                   padding: EdgeInsets.all(15),
                   child: Text(
                     'Complete the reservation form below and we will get back to you shortly.',
-                    style: TextStyle(fontSize: 16),
                   ),
                 ),
                 Divider(),
-                Title(color: Colors.black, child: Text('First Name*')),
+                Title(color: Colors.black, child: Text('Name*')),
                 Row(
                   children: <Widget>[
                     Expanded(
@@ -114,7 +113,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                         // The validator receives the text that the user has entered.
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter first name';
+                            return 'Please enter first and last name';
                           }
 
                           return null;
