@@ -7,7 +7,6 @@ class CarItem {
   String? path;
   String? path2;
   String? path3;
-  String? path4;
   String? color;
   String? doors;
   String? fuel;
@@ -25,7 +24,6 @@ class CarItem {
       required this.path,
       this.path2,
       this.path3,
-      this.path4,
       required this.color,
       required this.doors,
       required this.fuel,
@@ -40,7 +38,6 @@ class CarItem {
     path = json['path'];
     path2 = json['path2'];
     path3 = json['path3'];
-    path4 = json['path4'];
     color = json['color'];
     doors = json['doors'];
     category = json['category'];

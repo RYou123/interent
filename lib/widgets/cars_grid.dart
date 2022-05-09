@@ -7,19 +7,19 @@ import '../Widgets/unorderedlist.dart';
 class CarsGrid extends StatelessWidget {
   List<CarItem> avilcars;
 
-  late double? p;
   DateTime dtf;
   DateTime dtd;
   String pickup;
   String dropoff;
 
-  CarsGrid(
-      {required this.avilcars,
-      required this.dtf,
-      required this.dtd,
-      required this.pickup,
-      required this.dropoff});
-  var a = 0;
+  CarsGrid({
+    required this.avilcars,
+    required this.dtf,
+    required this.dtd,
+    required this.pickup,
+    required this.dropoff,
+  });
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -52,8 +52,8 @@ class CarsGrid extends StatelessWidget {
                     )));
           },
           child: Container(
-              height: MediaQuery.of(context).size.height / 4.5,
-              margin: EdgeInsets.only(top: 10, bottom: 10),
+              height: MediaQuery.of(context).size.height / 3.8,
+              margin: EdgeInsets.only(top: 5, bottom: 5),
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
                   boxShadow: [
@@ -61,66 +61,185 @@ class CarsGrid extends StatelessWidget {
                         color: Colors.black26, blurRadius: 5, spreadRadius: 1)
                   ]),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Hero(
                       tag: avilcars[i].title!,
-                      child: Column(children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                          child: Text(
-                            avilcars[i].title!,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18),
-                          ),
-                        ),
-                        Image.asset(
-                          avilcars[i].path!,
-                          width: MediaQuery.of(context).orientation ==
-                                  Orientation.portrait
-                              ? 180
-                              : 250,
-                          height: 120,
-                        ),
-                        MediaQuery.of(context).orientation ==
-                                Orientation.landscape
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(children: [
-                                  SpecificsCard2(
-                                      name: 'Gearbox',
-                                      name2: avilcars[i].transmission!),
-                                  SpecificsCard2(
-                                      name: 'Doors', name2: avilcars[i].doors!),
-                                  SpecificsCard2(
-                                      name: 'Fuel type',
-                                      name2: avilcars[i].fuel!),
-                                  SpecificsCard2(
-                                      name: 'Color', name2: avilcars[i].color!),
-                                ]),
-                              )
-                            : SizedBox(),
-                      ])),
-                  MediaQuery.of(context).orientation == Orientation.landscape
-                      ? UnorderedList([
-                          'All local taxes',
-                          'Unlimited mileage',
-                          'CDW & Theft Protection',
-                        ])
-                      : Spacer(),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * .9,
+                              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                              margin: const EdgeInsets.fromLTRB(5, 8, 3, 0),
+                              child: Text(
+                                '${avilcars[i].title!} or similar ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        MediaQuery.of(context).orientation ==
+                                                Orientation.landscape
+                                            ? 18
+                                            : 15),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  avilcars[i].path!,
+                                  alignment: Alignment.topCenter,
+                                  width: MediaQuery.of(context).orientation ==
+                                          Orientation.portrait
+                                      ? 160
+                                      : 200,
+                                  height: MediaQuery.of(context).orientation ==
+                                          Orientation.portrait
+                                      ? 140
+                                      : 180,
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                MediaQuery.of(context).orientation ==
+                                        Orientation.landscape
+                                    ? UnorderedList([
+                                        'All local taxes',
+                                        'Unlimited mileage',
+                                        'CDW & Theft Protection',
+                                      ])
+                                    : SizedBox(
+                                        height: 1,
+                                      ),
+                                MediaQuery.of(context).orientation ==
+                                        Orientation.portrait
+                                    ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                            MediaQuery.of(context)
+                                                        .orientation ==
+                                                    Orientation.landscape
+                                                ? SizedBox(
+                                                    height: 2,
+                                                  )
+                                                : Padding(
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(0, 0, 0, 2),
+                                                    child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          SpecificsCard2(
+                                                              name: 'Gearbox',
+                                                              name2: avilcars[i]
+                                                                  .transmission!),
+                                                          SpecificsCard2(
+                                                              name: 'Doors',
+                                                              name2: avilcars[i]
+                                                                  .doors!),
+                                                          SpecificsCard2(
+                                                              name: 'Fuel type',
+                                                              name2: avilcars[i]
+                                                                  .fuel!),
+                                                          SpecificsCard2(
+                                                              name: 'Color',
+                                                              name2: avilcars[i]
+                                                                  .color!),
+                                                        ])),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 0, 8, 0),
+                                              child: Text(
+                                                  '${(dtf.difference(dtd).inDays.toInt() > 14 ? (avilcars[i].price! * .85).roundToDouble() : dtf.difference(dtd).inDays.toInt() > 7 ? (avilcars[i].price! * .9).roundToDouble() : avilcars[i].price).toString()}€ / DAY',
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 0, 8, 0),
+                                              child: Text(
+                                                  'total ${dtf.difference(dtd).inDays.toInt().abs() > 14 ? (avilcars[i].price! * .85).roundToDouble() * dtf.difference(dtd).inDays.toInt().abs() : dtf.difference(dtd).inDays.toInt() > 7 ? (avilcars[i].price! * .9).roundToDouble() * dtf.difference(dtd).inDays.toInt().abs() : avilcars[i].price!.toInt() * dtf.difference(dtd).inDays.toInt().abs()}.00 €',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                  )),
+                                            ),
+                                          ])
+                                    : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(children: [
+                                                SpecificsCard2(
+                                                    name: 'Gearbox',
+                                                    name2: avilcars[i]
+                                                        .transmission!),
+                                                SpecificsCard2(
+                                                    name: 'Doors',
+                                                    name2: avilcars[i].doors!),
+                                                SpecificsCard2(
+                                                    name: 'Fuel type',
+                                                    name2: avilcars[i].fuel!),
+                                                SpecificsCard2(
+                                                    name: 'Color',
+                                                    name2: avilcars[i].color!),
+                                              ]),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 0, 8, 0),
+                                              child: Text(
+                                                  '${(dtf.difference(dtd).inDays.toInt() > 14 ? (avilcars[i].price! * .85).roundToDouble() : dtf.difference(dtd).inDays.toInt() > 7 ? (avilcars[i].price! * .9).roundToDouble() : avilcars[i].price).toString()}€ / DAY',
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 0, 8, 0),
+                                              child: Text(
+                                                  'total ${dtf.difference(dtd).inDays.toInt().abs() > 14 ? (avilcars[i].price! * .85).roundToDouble() * dtf.difference(dtd).inDays.toInt().abs() : dtf.difference(dtd).inDays.toInt() > 7 ? (avilcars[i].price! * .9).roundToDouble() * dtf.difference(dtd).inDays.toInt().abs() : avilcars[i].price!.toInt() * dtf.difference(dtd).inDays.toInt().abs()}.00 €',
+                                                  style:
+                                                      TextStyle(fontSize: 14)),
+                                            ),
+                                          ]),
+                              ],
+                            ),
+                          ])),
 
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                  /* Column(
+                      crossAxisAlignment: MediaQuery.of(context).orientation ==
+                              Orientation.landscape
+                          ? CrossAxisAlignment.start
+                          : CrossAxisAlignment.center,
                       mainAxisAlignment: MediaQuery.of(context).orientation ==
                               Orientation.landscape
-                          ? MainAxisAlignment.end
+                          ? MainAxisAlignment.center
                           : MainAxisAlignment.start,
                       children: [
                         MediaQuery.of(context).orientation ==
                                 Orientation.landscape
-                            ? Spacer()
+                            ? SizedBox(
+                                height: 2,
+                              )
                             : Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                                padding: const EdgeInsets.fromLTRB(0, 8, 0, 2),
                                 child: Row(children: [
                                   SpecificsCard2(
                                       name: 'Gearbox',
@@ -148,7 +267,7 @@ class CarsGrid extends StatelessWidget {
                             'total ${dtf.difference(dtd).inDays.toInt().abs() > 14 ? (avilcars[i].price! * .85).roundToDouble() * dtf.difference(dtd).inDays.toInt().abs() : dtf.difference(dtd).inDays.toInt() > 7 ? (avilcars[i].price! * .9).roundToDouble() * dtf.difference(dtd).inDays.toInt().abs() : avilcars[i].price!.toInt() * dtf.difference(dtd).inDays.toInt().abs()}.00 €',
                           ),
                         ),
-                      ]),
+                      ]),*/
                   SizedBox(
                     width: 5,
                   ),

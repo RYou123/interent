@@ -65,13 +65,14 @@ class SpecificsCard2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(5),
+        margin: EdgeInsets.all(2),
+        padding: EdgeInsets.all(2),
         height: MediaQuery.of(context).orientation == Orientation.landscape
             ? 60
-            : 50,
+            : 45,
         width: MediaQuery.of(context).orientation == Orientation.landscape
             ? 70
-            : 45,
+            : 40,
         decoration: BoxDecoration(
             border: Border.all(color: Colors.grey, width: 1),
             borderRadius: BorderRadius.circular(10)),

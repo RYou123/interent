@@ -39,7 +39,46 @@ class CarDetail extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0.5,
-          actions: [],
+          actions: <Widget>[
+            Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 15, 0),
+                child: MediaQuery.of(context).orientation ==
+                        Orientation.landscape
+                    ? Text('Customer Service: (+30) 210 2205573 ',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.grey[700],
+                            fontSize: MediaQuery.of(context).orientation ==
+                                    Orientation.portrait
+                                ? 8
+                                : 15,
+                            fontFamily: 'OpenSans',
+                            fontWeight: FontWeight.bold))
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                            Text('Customer Service:',
+                                style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize:
+                                        MediaQuery.of(context).orientation ==
+                                                Orientation.portrait
+                                            ? 13
+                                            : 15,
+                                    fontFamily: 'OpenSans',
+                                    fontWeight: FontWeight.bold)),
+                            Text('(+30) 210 2205573 ',
+                                style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize:
+                                        MediaQuery.of(context).orientation ==
+                                                Orientation.portrait
+                                            ? 12
+                                            : 15,
+                                    fontFamily: 'OpenSans',
+                                    fontWeight: FontWeight.bold)),
+                          ])),
+          ],
           title: Text(
             'Booking details',
             textAlign: TextAlign.center,
@@ -79,6 +118,7 @@ class CarDetail extends StatelessWidget {
                   )
                 ]),
                 Container(
+                  width: MediaQuery.of(context).size.width,
                   height: 1000,
                   padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
                   child: Column(children: [
@@ -88,19 +128,21 @@ class CarDetail extends StatelessWidget {
                         SpecificsCard(
                           name: '20 Days',
                           price: dtf!.difference(dtd!).inDays.toInt() > 14
-                              ? (price!).roundToDouble()
+                              ? (price!.abs().roundToDouble()).roundToDouble()
                               : dtf!.difference(dtd!).inDays.toInt() > 7
-                                  ? (price! / 0.9 * 0.85).roundToDouble()
-                                  : price!.roundToDouble() * 0.85,
+                                  ? (price!.abs().roundToDouble() / 0.9 * 0.85)
+                                      .roundToDouble()
+                                  : (price! * 0.85).abs().roundToDouble(),
                           name2: 'Euro',
                         ),
                         SpecificsCard(
                           name: '7 Days',
                           price: dtf!.difference(dtd!).inDays.toInt() > 14
-                              ? (price! / .85 * 0.9).roundToDouble()
+                              ? (price!.abs().roundToDouble() / .85 * 0.9)
+                                  .roundToDouble()
                               : dtf!.difference(dtd!).inDays.toInt() > 7
-                                  ? (price!).roundToDouble()
-                                  : price!.roundToDouble() * 0.9,
+                                  ? (price!.roundToDouble())
+                                  : (price! * 0.9).abs().roundToDouble(),
                           name2: 'Euro',
                         ),
                         SpecificsCard(
@@ -187,8 +229,7 @@ class CarDetail extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('Price'),
-                              Text(
-                                  '${dtf!.difference(dtd!).inDays.toInt().abs().roundToDouble() * price!} €')
+                              Text('${price!.abs().roundToDouble()}.00 €/DAY')
                             ]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -209,7 +250,8 @@ class CarDetail extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Total'),
+                              Text(
+                                  'Total for ${dtf!.difference(dtd!).inDays.toInt().abs()} days '),
                               Text(
                                 '${dtf!.difference(dtd!).inDays.toInt().abs().roundToDouble() * price!.abs().roundToDouble()} €',
                                 style: TextStyle(

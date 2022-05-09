@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:window_location_href/window_location_href.dart';
 import 'package:url_strategy/url_strategy.dart';
-import './screens/thank_you.dart';
 
 import 'models/cars.dart';
 import 'models/database.dart';
@@ -66,10 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
     'Piraeus Port',
     'Kalamaki Port',
     'Central Athens',
-    'Hotel (specify later)'
+    'Other'
   ];
-
-  
 
   DateTime selectedDate = DateTime.now().subtract(Duration(days: 1));
   DateTime selectedDate2 = DateTime.now();
@@ -103,75 +100,147 @@ class _MyHomePageState extends State<MyHomePage> {
   CollectionReference _mainCollection =
       FirebaseFirestore.instance.collection('Cars');
 
+  int isDateSelected = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          actions: <Widget>[
-            Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 15, 0),
-                child: MediaQuery.of(context).orientation ==
-                        Orientation.landscape
-                    ? Text('Customer Service: (+30) 22910 79480 ',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.grey[700],
-                            fontSize: MediaQuery.of(context).orientation ==
-                                    Orientation.portrait
-                                ? 8
-                                : 15,
-                            fontFamily: 'OpenSans',
-                            fontWeight: FontWeight.bold))
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                            Text('Customer Service:',
-                                style: TextStyle(
-                                    color: Colors.grey[700],
-                                    fontSize:
-                                        MediaQuery.of(context).orientation ==
-                                                Orientation.portrait
-                                            ? 10
-                                            : 15,
-                                    fontFamily: 'OpenSans',
-                                    fontWeight: FontWeight.bold)),
-                            Text('(+30) 22910 79480 ',
-                                style: TextStyle(
-                                    color: Colors.grey[700],
-                                    fontSize:
-                                        MediaQuery.of(context).orientation ==
-                                                Orientation.portrait
-                                            ? 8
-                                            : 15,
-                                    fontFamily: 'OpenSans',
-                                    fontWeight: FontWeight.bold)),
-                          ])),
-          ],
-          elevation: 0.5,
-          toolbarHeight: 90,
-          centerTitle: true,
-          title: Wrap(children: [
-            new Text(
-              MediaQuery.of(context).orientation == Orientation.landscape
-                  ? 'Rates & Reservations'
-                  : 'Our Rates',
-              maxLines: 3,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontFamily: 'OpenSans',
-                  fontWeight: FontWeight.bold),
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+
+          children: [
+            SizedBox(
+              height: 50,
             ),
-          ]),
-          backgroundColor: Colors.white,
-          automaticallyImplyLeading: true,
-          leading: Transform.scale(
-              scale: 3,
+            ListTile(
+              title: Center(
+                child: const Text(
+                  'Home',
+                  style: TextStyle(fontSize: 18, color: Colors.grey),
+                ),
+              ),
+              onTap: () {
+                _launchURL();
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Center(
+                child: const Text('Book Now',
+                    style: TextStyle(fontSize: 18, color: Colors.grey)),
+              ),
+              onTap: () {
+                launch('https://interent.gr/book-now.html',
+                    webOnlyWindowName: '_self');
+
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Center(
+                child: const Text('About',
+                    style: TextStyle(fontSize: 18, color: Colors.grey)),
+              ),
+              onTap: () {
+                launch('https://www.interent.gr/about.html',
+                    webOnlyWindowName: '_self');
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Center(
+                child: const Text('Contact',
+                    style: TextStyle(fontSize: 18, color: Colors.grey)),
+              ),
+              onTap: () {
+                launch('https://www.interent.gr/contact.html',
+                    webOnlyWindowName: '_self');
+                // Update the state of the app.
+                // ...
+              },
+            ),
+          ],
+        ),
+      ),
+      appBar: AppBar(
+        actions: <Widget>[
+          Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 15, 0),
+              child: MediaQuery.of(context).orientation == Orientation.landscape
+                  ? Align(
+                      alignment: Alignment.center,
+                      child: Text('Customer Service: (+30) 210 2205573 ',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.grey[800],
+                              fontSize: MediaQuery.of(context).orientation ==
+                                      Orientation.portrait
+                                  ? 8
+                                  : 16,
+                              fontFamily: 'OpenSans',
+                              fontWeight: FontWeight.bold)),
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                          Text('Customer Service:',
+                              style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontSize:
+                                      MediaQuery.of(context).orientation ==
+                                              Orientation.portrait
+                                          ? 13
+                                          : 15,
+                                  fontFamily: 'OpenSans',
+                                  fontWeight: FontWeight.bold)),
+                          Text('(+30) 210 2205573 ',
+                              style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontSize:
+                                      MediaQuery.of(context).orientation ==
+                                              Orientation.portrait
+                                          ? 12
+                                          : 15,
+                                  fontFamily: 'OpenSans',
+                                  fontWeight: FontWeight.bold)),
+                        ])),
+        ],
+        elevation: 0.5,
+        toolbarHeight: 90,
+        title: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Transform.scale(
+              scale: 4,
               child: IconButton(
+                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 onPressed: _launchURL,
                 icon: Image.asset('assets/logo.jpg'),
-                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-              ))),
+              )),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * .2,
+          ),
+          new Text(
+            MediaQuery.of(context).orientation == Orientation.landscape
+                ? 'Rates & Reservations'
+                : '',
+            maxLines: 3,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.grey,
+                fontFamily: 'OpenSans',
+                fontWeight: FontWeight.bold),
+          ),
+        ]),
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: true,
+      ),
       body:
           ListView(shrinkWrap: true, padding: EdgeInsets.all(10.0), children: <
               Widget>[
@@ -179,16 +248,22 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 5,
         ),
         Container(
-            padding: EdgeInsets.all(10),
-            child: Text(
-              "Select your car",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[700],
-                  fontSize: 16),
-            )),
+            decoration: new BoxDecoration(color: Colors.grey[50]),
+            padding: EdgeInsets.all(4),
+            child: Row(children: [
+              Text(
+                "  Select your dates and rental location",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 15),
+              ),
+            ])),
+        SizedBox(
+          height: 2,
+        ),
         Container(
-          decoration: new BoxDecoration(color: Colors.grey[200]),
+          decoration: new BoxDecoration(color: Colors.blue[50]),
           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
           child: Row(children: [
             Column(
@@ -196,7 +271,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 5,
+                    height: 2,
                   ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -211,7 +286,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ]),
                   Row(children: [
                     Container(
-                        margin: const EdgeInsets.fromLTRB(8, 10, 0, 8),
+                        margin: const EdgeInsets.fromLTRB(0, 10, 0, 8),
                         height: 40,
                         color: Colors.white,
                         alignment: Alignment.center,
@@ -226,7 +301,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           items: items.map((String items) {
                             return DropdownMenuItem(
                                 value: items,
-                                child: Text('     $items',
+                                child: Text('       $items',
                                     textAlign: TextAlign.center));
                           }).toList(),
                           onChanged: (String? newValue1) {
@@ -236,11 +311,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                         )),
                     SizedBox(
-                      width: 5,
+                      width: 2,
                     ),
                     Container(
                         height: 40,
-                        margin: const EdgeInsets.fromLTRB(8, 10, 0, 8),
+                        margin: const EdgeInsets.fromLTRB(2, 8, 0, 8),
                         color: Colors.white,
                         alignment: Alignment.center,
                         width: MediaQuery.of(context).size.width / 2.3,
@@ -254,7 +329,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           items: items.map((String items) {
                             return DropdownMenuItem(
                                 value: items,
-                                child: Text('     $items',
+                                child: Text('       $items',
                                     textAlign: TextAlign.center));
                           }).toList(),
                           onChanged: (String? newValue) {
@@ -280,8 +355,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Colors.white,
                               child: InkWell(
                                   onTap: () {
-                                    _selectDate(
-                                        context); // Call Function that has showDatePicker()
+                                    _selectDate(context);
+                                    isDateSelected =
+                                        1; // Call Function that has showDatePicker()
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
@@ -328,8 +404,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Colors.white,
                               child: InkWell(
                                   onTap: () {
-                                    _selectDate2(
-                                        context); // Call Function that has showDatePicker()
+                                    _selectDate2(context);
+                                    isDateSelected =
+                                        1; // Call Function that has showDatePicker()
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
@@ -370,9 +447,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 ]),
           ]),
         ),
-        SizedBox(
-          height: 5,
-        ),
+        SizedBox(height: 5),
+        isDateSelected == 1
+            ? Container(
+                decoration: new BoxDecoration(color: Colors.grey[50]),
+                padding: EdgeInsets.all(4),
+                child: Text(
+                  "Select your car:",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: 15),
+                ))
+            : SizedBox(height: 5),
         CarsGrid(
           avilcars: c,
           dtd: DateTime(selectedDate.year, selectedDate.month, selectedDate.day,
@@ -411,7 +498,6 @@ class _MyHomePageState extends State<MyHomePage> {
             data["path"] != null ? list2.add(data["path"]) : null;
             data["path2"] != null ? list2.add(data["path2"]) : null;
             data["path3"] != null ? list2.add(data["path3"]) : null;
-            data["path4"] != null ? list2.add(data["path4"]) : null;
 
             item.isAvailable = true;
             item.image = list2;
@@ -438,6 +524,7 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() {});
             print("nn");
             c.add(item);
+            c.sort((a, b) => a.price!.compareTo(b.price!));
             print(item.image);
           }
         });
