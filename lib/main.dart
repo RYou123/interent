@@ -38,7 +38,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           textTheme:
               const TextTheme(bodyText2: TextStyle(fontFamily: "OpenSans")),
-          primarySwatch: Colors.blueGrey,
           primaryColor: Colors.white,
           accentColor: Colors.purple,
           backgroundColor: Colors.white),
@@ -72,7 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
   DateTime selectedDate2 = DateTime.now();
   SearchService d = new SearchService();
   Database dd = new Database();
-  List<CarItem> avail = [];
 
   bool aaa = false;
   double? _height;
@@ -104,372 +102,234 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double? mediawidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-
-          children: [
+      body: ListView(
+          shrinkWrap: false,
+          padding: EdgeInsets.all(10.0),
+          children: <Widget>[
             SizedBox(
-              height: 50,
+              height: 5,
             ),
-            ListTile(
-              title: Center(
-                child: const Text(
-                  'Home',
-                  style: TextStyle(fontSize: 18, color: Colors.grey),
-                ),
-              ),
-              onTap: () {
-                _launchURL();
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Center(
-                child: const Text('Book Now',
-                    style: TextStyle(fontSize: 18, color: Colors.grey)),
-              ),
-              onTap: () {
-                launch('https://interent.gr/book-now.html',
-                    webOnlyWindowName: '_self');
-
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Center(
-                child: const Text('About',
-                    style: TextStyle(fontSize: 18, color: Colors.grey)),
-              ),
-              onTap: () {
-                launch('https://www.interent.gr/about.html',
-                    webOnlyWindowName: '_self');
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Center(
-                child: const Text('Contact',
-                    style: TextStyle(fontSize: 18, color: Colors.grey)),
-              ),
-              onTap: () {
-                launch('https://www.interent.gr/contact.html',
-                    webOnlyWindowName: '_self');
-                // Update the state of the app.
-                // ...
-              },
-            ),
-          ],
-        ),
-      ),
-      appBar: AppBar(
-        actions: <Widget>[
-          Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 15, 0),
-              child: MediaQuery.of(context).orientation == Orientation.landscape
-                  ? Align(
-                      alignment: Alignment.center,
-                      child: Text('Customer Service: (+30) 210 2205573 ',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.grey[800],
-                              fontSize: MediaQuery.of(context).orientation ==
-                                      Orientation.portrait
-                                  ? 8
-                                  : 16,
-                              fontFamily: 'OpenSans',
-                              fontWeight: FontWeight.bold)),
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                          Text('Customer Service:',
-                              style: TextStyle(
-                                  color: Colors.grey[700],
-                                  fontSize:
-                                      MediaQuery.of(context).orientation ==
-                                              Orientation.portrait
-                                          ? 13
-                                          : 15,
-                                  fontFamily: 'OpenSans',
-                                  fontWeight: FontWeight.bold)),
-                          Text('(+30) 210 2205573 ',
-                              style: TextStyle(
-                                  color: Colors.grey[700],
-                                  fontSize:
-                                      MediaQuery.of(context).orientation ==
-                                              Orientation.portrait
-                                          ? 12
-                                          : 15,
-                                  fontFamily: 'OpenSans',
-                                  fontWeight: FontWeight.bold)),
-                        ])),
-        ],
-        elevation: 0.5,
-        toolbarHeight: 90,
-        title: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Transform.scale(
-              scale: 4,
-              child: IconButton(
-                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                onPressed: _launchURL,
-                icon: Image.asset('assets/logo.jpg'),
-              )),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * .2,
-          ),
-          new Text(
-            MediaQuery.of(context).orientation == Orientation.landscape
-                ? 'Rates & Reservations'
-                : '',
-            maxLines: 3,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.grey,
-                fontFamily: 'OpenSans',
-                fontWeight: FontWeight.bold),
-          ),
-        ]),
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: true,
-      ),
-      body:
-          ListView(shrinkWrap: true, padding: EdgeInsets.all(10.0), children: <
-              Widget>[
-        SizedBox(
-          height: 5,
-        ),
-        Container(
-            decoration: new BoxDecoration(color: Colors.grey[50]),
-            padding: EdgeInsets.all(4),
-            child: Row(children: [
-              Text(
-                "  Select your dates and rental location",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 15),
-              ),
-            ])),
-        SizedBox(
-          height: 2,
-        ),
-        Container(
-          decoration: new BoxDecoration(color: Colors.blue[50]),
-          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-          child: Row(children: [
-            Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 2,
+            Container(
+                decoration: new BoxDecoration(color: Colors.white),
+                padding: EdgeInsets.all(4),
+                child: Row(children: [
+                  Text(
+                    "  Select your dates and rental location",
+                    style: TextStyle(color: Colors.black, fontSize: 15),
                   ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              ' Pickup/Drop-off location: ',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12),
+                ])),
+            SizedBox(
+              height: 2,
+            ),
+            Container(
+              decoration: new BoxDecoration(color: Colors.blue[50]),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Row(children: [
+                Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  ' Pickup/Drop-off location: ',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
+                                )),
+                          ]),
+                      Row(children: [
+                        Container(
+                            margin: const EdgeInsets.fromLTRB(0, 10, 0, 8),
+                            height: 40,
+                            color: Colors.white,
+                            alignment: Alignment.center,
+                            width: mediawidth / 2.3,
+                            child: DropdownButton(
+                              isExpanded: true,
+                              style: TextStyle(color: Colors.black),
+                              dropdownColor: Colors.orange,
+                              value: pickuplocation,
+                              icon: Icon(Icons.keyboard_arrow_down),
+                              underline: Container(),
+                              items: items.map((String items) {
+                                return DropdownMenuItem(
+                                    value: items,
+                                    child: Text('       $items',
+                                        textAlign: TextAlign.center));
+                              }).toList(),
+                              onChanged: (String? newValue1) {
+                                setState(() {
+                                  pickuplocation = newValue1!;
+                                });
+                              },
+                            )),
+                        SizedBox(
+                          width: 2,
+                        ),
+                        Container(
+                            height: 40,
+                            margin: const EdgeInsets.fromLTRB(2, 8, 0, 8),
+                            color: Colors.white,
+                            alignment: Alignment.center,
+                            width: mediawidth / 2.3,
+                            child: DropdownButton(
+                              isExpanded: true,
+                              style: TextStyle(color: Colors.black),
+                              dropdownColor: Colors.orange,
+                              value: dropofflocation,
+                              icon: Icon(Icons.keyboard_arrow_down),
+                              underline: Container(),
+                              items: items.map((String items) {
+                                return DropdownMenuItem(
+                                    value: items,
+                                    child: Text('       $items',
+                                        textAlign: TextAlign.center));
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  dropofflocation = newValue!;
+                                });
+                              },
                             )),
                       ]),
-                  Row(children: [
-                    Container(
-                        margin: const EdgeInsets.fromLTRB(0, 10, 0, 8),
-                        height: 40,
-                        color: Colors.white,
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width / 2.3,
-                        child: DropdownButton(
-                          isExpanded: true,
-                          style: TextStyle(color: Colors.black),
-                          dropdownColor: Colors.orange,
-                          value: pickuplocation,
-                          icon: Icon(Icons.keyboard_arrow_down),
-                          underline: Container(),
-                          items: items.map((String items) {
-                            return DropdownMenuItem(
-                                value: items,
-                                child: Text('       $items',
-                                    textAlign: TextAlign.center));
-                          }).toList(),
-                          onChanged: (String? newValue1) {
-                            setState(() {
-                              pickuplocation = newValue1!;
-                            });
-                          },
-                        )),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    Container(
-                        height: 40,
-                        margin: const EdgeInsets.fromLTRB(2, 8, 0, 8),
-                        color: Colors.white,
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width / 2.3,
-                        child: DropdownButton(
-                          isExpanded: true,
-                          style: TextStyle(color: Colors.black),
-                          dropdownColor: Colors.orange,
-                          value: dropofflocation,
-                          icon: Icon(Icons.keyboard_arrow_down),
-                          underline: Container(),
-                          items: items.map((String items) {
-                            return DropdownMenuItem(
-                                value: items,
-                                child: Text('       $items',
-                                    textAlign: TextAlign.center));
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropofflocation = newValue!;
-                            });
-                          },
-                        )),
-                  ]),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(" Start date: ",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 12)),
-                      Row(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Container(
-                              alignment: Alignment.center,
-                              height: 30,
-                              width: MediaQuery.of(context).size.width / 2.3,
-                              color: Colors.white,
-                              child: InkWell(
+                          Text(" Start date: ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12)),
+                          Row(
+                            children: [
+                              Container(
+                                  alignment: Alignment.center,
+                                  height: 30,
+                                  width: mediawidth / 2.3,
+                                  color: Colors.white,
+                                  child: InkWell(
+                                      onTap: () {
+                                        _selectDate(context);
+                                        setState(() {
+                                          isDateSelected = 1;
+                                        }); // Call Function that has showDatePicker()
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: mediawidth / 2.3,
+                                        child: Text(
+                                            "  ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}"),
+                                      ))),
+                              Container(
+                                color: Colors.white,
+                                height: 30,
+                                width: mediawidth / 2.3,
+                                margin: const EdgeInsets.fromLTRB(8, 10, 0, 8),
+                                child: InkWell(
                                   onTap: () {
-                                    _selectDate(context);
-                                    isDateSelected =
-                                        1; // Call Function that has showDatePicker()
+                                    _selectTime2(
+                                        context); // Call Function that has showDatePicker()
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2.3,
-                                    child: Text(
-                                        "  ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}"),
-                                  ))),
-                          Container(
-                            color: Colors.white,
-                            height: 30,
-                            width: MediaQuery.of(context).size.width / 2.3,
-                            margin: const EdgeInsets.fromLTRB(8, 10, 0, 8),
-                            child: InkWell(
-                              onTap: () {
-                                _selectTime2(
-                                    context); // Call Function that has showDatePicker()
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: 50,
-                                width: MediaQuery.of(context).size.width * 0.07,
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                      "${selectedTime2.hour}:${selectedTime2.hour}"),
-                                ),
+                                    height: 50,
+                                    width: mediawidth * 0.07,
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                          "${selectedTime2.hour}:${selectedTime2.hour}"),
+                                    ),
 
-                                // validator: validateDob,
+                                    // validator: validateDob,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
+                          ),
+                          Text(" End date: ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12)),
+                          Row(
+                            children: [
+                              Container(
+                                  alignment: Alignment.center,
+                                  width: mediawidth / 2.3,
+                                  height: 30,
+                                  color: Colors.white,
+                                  child: InkWell(
+                                      onTap: () {
+                                        _selectDate2(context);
+                                        setState(() {
+                                          isDateSelected = 1;
+                                        });
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: mediawidth / 2.3,
+                                        child: Text(
+                                            "  ${selectedDate2.day}/${selectedDate2.month}/${selectedDate2.year}"),
+                                      ))),
+                              //EndDate
+                              Container(
+                                color: Colors.white,
+                                height: 30,
+                                width: mediawidth / 2.3,
+                                margin: const EdgeInsets.fromLTRB(8, 10, 0, 8),
+                                child: InkWell(
+                                  onTap: () {
+                                    _selectTime(
+                                        context); // Call Function that has showDatePicker()
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 50,
+                                    width: mediawidth * 0.07,
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                          "${selectedTime.hour}:${selectedTime.hour}"),
+                                    ),
+
+                                    // validator: validateDob,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ],
                       ),
-                      Text(" End date: ",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 12)),
-                      Row(
-                        children: [
-                          Container(
-                              alignment: Alignment.center,
-                              width: MediaQuery.of(context).size.width / 2.3,
-                              height: 30,
-                              color: Colors.white,
-                              child: InkWell(
-                                  onTap: () {
-                                    _selectDate2(context);
-                                    isDateSelected =
-                                        1; // Call Function that has showDatePicker()
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    width:
-                                        MediaQuery.of(context).size.width / 2.3,
-                                    child: Text(
-                                        "  ${selectedDate2.day}/${selectedDate2.month}/${selectedDate2.year}"),
-                                  ))),
-                          //EndDate
-                          Container(
-                            color: Colors.white,
-                            height: 30,
-                            width: MediaQuery.of(context).size.width / 2.3,
-                            margin: const EdgeInsets.fromLTRB(8, 10, 0, 8),
-                            child: InkWell(
-                              onTap: () {
-                                _selectTime(
-                                    context); // Call Function that has showDatePicker()
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: 50,
-                                width: MediaQuery.of(context).size.width * 0.07,
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(
-                                      "${selectedTime.hour}:${selectedTime.hour}"),
-                                ),
-
-                                // validator: validateDob,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ]),
+                    ]),
+              ]),
+            ),
+            SizedBox(height: 5),
+            isDateSelected == 1
+                ? Container(
+                    decoration: new BoxDecoration(color: Colors.grey[50]),
+                    padding: EdgeInsets.all(4),
+                    child: Text(
+                      "Select your car:",
+                      style: TextStyle(color: Colors.black, fontSize: 15),
+                    ))
+                : SizedBox(height: 5),
+            CarsGrid(
+              avilcars: c,
+              dtd: DateTime(selectedDate.year, selectedDate.month,
+                  selectedDate.day, selectedTime2.hour, selectedTime2.minute),
+              dtf: DateTime(selectedDate2.year, selectedDate2.month,
+                  selectedDate2.day, selectedTime.hour, selectedTime.minute),
+              pickup: pickuplocation,
+              dropoff: dropofflocation,
+            ),
           ]),
-        ),
-        SizedBox(height: 5),
-        isDateSelected == 1
-            ? Container(
-                decoration: new BoxDecoration(color: Colors.grey[50]),
-                padding: EdgeInsets.all(4),
-                child: Text(
-                  "Select your car:",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 15),
-                ))
-            : SizedBox(height: 5),
-        CarsGrid(
-          avilcars: c,
-          dtd: DateTime(selectedDate.year, selectedDate.month, selectedDate.day,
-              selectedTime2.hour, selectedTime2.minute),
-          dtf: DateTime(selectedDate2.year, selectedDate2.month,
-              selectedDate2.day, selectedTime.hour, selectedTime.minute),
-          pickup: pickuplocation,
-          dropoff: dropofflocation,
-        ),
-      ]),
     );
   }
 
